@@ -1,0 +1,95 @@
+{
+  "Menu": {
+    "bgColor": "#552200",
+    "uiElements": [
+      {
+        "type": "Text",
+        "id": "welcomeText",
+        "fontFamily": "Roboto-Medium",
+        "fontSize": 30,
+        "textColor": "#FFFFFF",
+        "position": {
+          "x": 400,
+          "y": 50
+        },
+        "content": "Welcome to the Sasta Harmonium!"
+      },
+      {
+        "type": "Text",
+        "id": "welcomeText",
+        "fontFamily": "Roboto-Medium",
+        "fontSize": 15,
+        "textColor": "#FFFFFF",
+        "position": {
+          "x": 400,
+          "y": 150
+        },
+        "content": "Controls:\n1: Last keyboard row Z to M for major keys. \n2: Minor keys on the keyboard are S D G H J\n3: To switch Octaves, press up arrow to increase and down arrow for lower octave.\n4: Press Left Shift to switch temporily to go one octave higher, it will go back to original octave once you release it"
+      },
+      {
+        "type": "Button",
+        "id": "startButton",
+        "fontFamily": "Roboto-Medium",
+        "fontSize": 20,
+        "textColor": "#000000",
+        "buttonStateColors": {
+          "Default": "#FFFFFF",
+          "Hover": "#FFFF00",
+          "Pressed": "#FF0000"
+        },
+        "position": {
+          "x": 400,
+          "y": 300
+        },
+        "size": {
+          "width": 150,
+          "height": 50
+        },
+        "content": "Start",
+        "callback": "StartGame"
+      }
+
+    ]
+  },
+  "Game": {
+    "bgColor": "#662200",
+    "uiElements": [
+      {
+        "type": "Text",
+        "id": "welcomeText",
+        "fontFamily": "Roboto-Medium",
+        "fontSize": 24,
+        "textColor": "#FFFFFF",
+        "position": {
+          "x": 400,
+          "y": 50
+        },
+        "content": "Sasta Harmonium"
+      },
+      {
+        "type": "Button",
+        "id": "Back",
+        "fontFamily": "Roboto-Medium",
+        "fontSize": 20,
+        "textColor": "#000000",
+        "buttonStateColors": {
+          "Default": "#FFFFFF",
+          "Hover": "#FFFF00",
+          "Pressed": "#FF0000"
+        },
+        "position": {
+          "x": 700,
+          "y": 100
+        },
+        "size": {
+          "width": 100,
+          "height": 50
+        },
+        "content": "Back",
+        "callback": "MainMenu"
+      }
+    ]
+  },
+  "fontFamily": "Roboto-Medium",
+  "fontSize": 16
+}
