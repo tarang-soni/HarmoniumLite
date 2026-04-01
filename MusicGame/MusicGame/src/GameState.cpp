@@ -17,7 +17,7 @@ GameState::GameState(StateStack& stateStack, Context context)
 
 void GameState::Enter()
 {
-	const char* path = "example.json";
+	const char* path = "resources/example.json";
 	const char* screenType = "Game";
 	uiElements = UIFactory::CreateAllElements(screenType, path, *this);
 	std::ifstream file(path);

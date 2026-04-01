@@ -14,7 +14,27 @@ Game::Game(const char* name, int width, int height):
 
 	RegisterStates();
 	_stateStack.PushState(States::Menu);
-	std::ifstream f("example.json");
+	_stateStack.PushState(States::Menu);
+
+    // Safely attempt to open the file
+    std::ifstream f("resources/example.json");
+    if (!f.is_open())
+    {
+        std::cerr << "ERROR: Failed to open example.json! Check your working directory." << std::endl;
+    }
+    else
+    {
+        try
+        {
+            // Parse only if the file successfully opened
+            nlohmann::json data = nlohmann::json::parse(f);
+            std::cout << "Successfully loaded JSON. pi = " << data["pi"] << std::endl;
+        }
+        catch (const nlohmann::json::parse_error& e)
+        {
+            std::cerr << "JSON parsing error: " << e.what() << std::endl;
+        }
+    }
 	//nlohmann::json data = nlohmann::json::parse(f);
 	//std::cout << data["pi"] << std::endl;
 }

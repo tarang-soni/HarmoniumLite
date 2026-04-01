@@ -109,7 +109,7 @@ void MusicKey::CreateRect()
 	_rect.setPosition(this->getPosition());
 	_rect.setFillColor(_keyType == KeyType::Major? sf::Color::White : sf::Color::Black); 
 
-	const char* path = "example.json";
+	const char* path = "resources/example.json";
 	const char* screenType = "Game";
 	std::ifstream file(path);
 	if (!file.is_open()) {

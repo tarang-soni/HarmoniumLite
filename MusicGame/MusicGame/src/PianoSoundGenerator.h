@@ -4,6 +4,7 @@
 #include <vector>
 #include <iostream>
 #include<unordered_map>
+#include <cmath>  // add this at the top
 #include "Core.h"
 #include "Scales.h"
 class PianoSoundGenerator {

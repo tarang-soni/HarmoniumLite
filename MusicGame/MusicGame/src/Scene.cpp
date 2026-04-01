@@ -86,98 +86,75 @@ Scene::Scene(sf::RenderWindow& windowRef)
 
 void Scene::PollEvents(const sf::Event& e)
 {
-	Entity::PollEvents(e);
+    Entity::PollEvents(e);
 
-	// Then, handle minor keys
+    if (e.type == sf::Event::KeyPressed)
+    {
+        // 1. Handle system keys first
+        switch (e.key.code)
+        {
+        case sf::Keyboard::Up:
+            if (currentOctave < maxOctave) ++currentOctave;
+            std::cout << "CurrentOctave: " << currentOctave << std::endl;
+            break;
+        case sf::Keyboard::Down:
+            if (currentOctave > minOctave) --currentOctave;
+            std::cout << "CurrentOctave: " << currentOctave << std::endl;
+            break;
+        case sf::Keyboard::LShift:
+            // Only increment if it's a fresh press to avoid auto-repeat bugs
+            if (usedKeys.find(sf::Keyboard::LShift) == usedKeys.end()) {
+                if (currentOctave < maxOctave) ++currentOctave;
+                std::cout << "CurrentOctave: " << currentOctave << std::endl;
+            }
+            break;
+        default:
+            break;
+        }
 
-	switch (e.type)
-	{
-	case sf::Event::KeyPressed:
-		if (usedKeys.find(e.key.code) == usedKeys.end()) 
-		{
-			if (musicKeys.find(e.key.code) != musicKeys.end()) 
-			{
-				musicKeys[e.key.code]->PlaySound(MusicKey::Keyboard);
-			}
-			usedKeys.emplace(e.key.code);
-		}
-		else 
-		{
-			break;
-		}
-		switch (e.key.code)
-		{
-		case sf::Keyboard::Up:
-			if (currentOctave < maxOctave) {
-				++currentOctave;
-			}
-			std::cout << "CurrentOctave: " << currentOctave << std::endl;
-			break;
-		case sf::Keyboard::Down:
-			if (currentOctave > minOctave) {
-				--currentOctave;
-			}
-			std::cout << "CurrentOctave: " << currentOctave << std::endl;
-			break;
-		case sf::Keyboard::LShift:
-			//PLAY_SOUND(event Scales::RATIO_C_SHARP);
-			if (currentOctave < maxOctave) {
-				++currentOctave;
-			}
-			else if (currentOctave == maxOctave) {
-				usedKeys.erase(sf::Keyboard::LShift);
-			}
-			std::cout << "CurrentOctave: " << currentOctave << std::endl;
-			break;
-		}
+        // 2. Handle piano keys (ignore OS auto-repeats)
+    	if (usedKeys.find(e.key.code) == usedKeys.end())
+    	{
+    		usedKeys.emplace(e.key.code);
 
-		break;
-	case sf::Event::KeyReleased:
-		if (usedKeys.find(e.key.code)!= usedKeys.end())
-		{
-			if (musicKeys.find(e.key.code) != musicKeys.end())
-			{
-				musicKeys[e.key.code]->StopSound();
-			}
-			usedKeys.erase(e.key.code);
+    		// 1. Check if the key code is wild
+    		std::cout << "Pressed Key Code: " << e.key.code << std::endl;
 
+    		if (musicKeys.find(e.key.code) != musicKeys.end())
+    		{
+    			std::cout << "SUCCESS: Key found in musicKeys map!" << std::endl;
+    			musicKeys[e.key.code]->PlaySound(MusicKey::Keyboard);
+    		}
+    		else
+    		{
+    			std::cout << "ERROR: Key was NOT found in musicKeys map (Registration Failed)!" << std::endl;
+    		}
+    	}
+    }
+    else if (e.type == sf::Event::KeyReleased)
+    {
+        // 1. Safely remove the key from tracking
+        usedKeys.erase(e.key.code);
 
+        // 2. Stop the sound
+        if (musicKeys.find(e.key.code) != musicKeys.end())
+        {
+            musicKeys[e.key.code]->StopSound();
+        }
 
-		}
-		else 
-		{
-			break;
-		}
+        // 3. Handle LShift release
+        if (e.key.code == sf::Keyboard::LShift)
+        {
+            if (currentOctave > minOctave) --currentOctave;
+            std::cout << "CurrentOctave: " << currentOctave << std::endl;
+        }
+    }
 
-		switch (e.key.code)
-			{
-			case sf::Keyboard::LShift:
-			    if (currentOctave > minOctave) {
-			        --currentOctave;
-			    }
-			    std::cout << "CurrentOctave: " << currentOctave << std::endl;
-			    break;
-			default:
-			    break;
-			}
-
-		break;
-	}
-	for (auto& key : musicKeys)
-	{
-		if (key.second->GetKeyType() == MusicKey::KeyType::Minor)
-		{
-			key.second->PollEvents(e);
-		}
-	}
-	for (auto& key : musicKeys)
-	{
-		if (key.second->GetKeyType() == MusicKey::KeyType::Major)
-		{
-			key.second->PollEvents(e);
-		}
-	}
-
+    // Propagate events to children (no need to loop twice for major/minor, just pass it down)
+    for (auto& keyPair : musicKeys)
+    {
+        keyPair.second->PollEvents(e);
+    }
 }
 
 void Scene::Update()

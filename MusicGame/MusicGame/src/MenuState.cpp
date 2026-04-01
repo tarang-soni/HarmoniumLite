@@ -12,7 +12,7 @@ MenuState::MenuState(StateStack& stateStack,Context context):State(stateStack,co
 }
 void MenuState::Enter()
 {
-	const char* path = "example.json";
+	const char* path = "resources/example.json";
 	const char* screenType = "Menu";
 	uiElements = UIFactory::CreateAllElements(screenType, path, *this);
 	std::ifstream file(path);

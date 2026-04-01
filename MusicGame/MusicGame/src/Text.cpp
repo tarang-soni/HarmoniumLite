@@ -23,7 +23,7 @@ void Text::SetProperties(const nlohmann::json& props)
 	UIElement::SetProperties(props);
 	_font = sf::Font();
 	std::string fontFamily = props["fontFamily"];
-	if (!_font.loadFromFile(fontFamily + ".ttf"))
+	if (!_font.loadFromFile("resources/"+fontFamily + ".ttf"))
 	{
 		throw std::runtime_error("Wrong file");
 	}
