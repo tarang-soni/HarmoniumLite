@@ -26,10 +26,10 @@ harmonic synthesis, so the entire instrument runs with zero pre-recorded audio f
 ## Screenshots
 
 <!-- Add a screenshot of the main menu here -->
-![Main Menu](docs/images/menu.png)
+![Main Menu](references/1.png)
 
 <!-- Add a screenshot of the game / harmonium screen here -->
-![Game Screen](docs/images/game.png)
+![Game Screen](references/2.png)
 
 ## Controls
 
