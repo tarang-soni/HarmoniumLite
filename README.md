@@ -4,9 +4,6 @@ A lightweight virtual harmonium built in C++ and SFML. Play Indian classical not
 (Sa Re Ga Ma Pa Dha Ni) directly on your keyboard, shift octaves, and enjoy
 procedurally synthesized piano-like tones — no audio samples required.
 
-<!-- Add a project banner/logo here -->
-![HarmoniumLite Banner](docs/images/banner.png)
-
 ## About
 
 HarmoniumLite (internally the `MusicGame` project, in-game title *Sasta Harmonium*)
