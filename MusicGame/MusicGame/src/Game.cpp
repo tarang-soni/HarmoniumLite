@@ -14,7 +14,7 @@ Game::Game(const char* name, int width, int height):
 
 	RegisterStates();
 	_stateStack.PushState(States::Menu);
-	_stateStack.PushState(States::Menu);
+	_stateStack.PushState(States::Game);
 
     // Safely attempt to open the file
     std::ifstream f("resources/example.json");
